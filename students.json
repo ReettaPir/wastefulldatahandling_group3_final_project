@@ -1,0 +1,28 @@
+[
+    {
+        "student_number": "1",
+        "name": "Anna",
+        "contact": "anna@laurea.fi",
+        "grades": [
+            {
+                "course": "math",
+                "grade": "A"
+            },
+            {
+                "course": "Physic",
+                "grade": "C"
+            }
+        ]
+    },
+    {
+        "student_number": "2",
+        "name": "Wilma",
+        "contact": "wilma@laurea.fi",
+        "grades": [
+            {
+                "course": "Math",
+                "grade": "B"
+            }
+        ]
+    }
+]
