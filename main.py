@@ -36,12 +36,10 @@ def login():
             print("Incorrect username or password. Please try again.")
 
 
-def add_student():
+def add_student(students):
     student_number = input("Enter student number: ")
     name = input("Enter student name: ")
     contact = input("Enter student contact information: ")
-
-    students = load_students()
 
     for student in students:
         if student["student_number"] == student_number:
@@ -61,12 +59,10 @@ def add_student():
     print("Student added.")
 
 
-def add_grade():
+def add_grade(students):
     student_number = input("Enter student number: ")
     course = input("Enter course name: ")
     grade = input("Enter grade: ")
-
-    students = load_students()
 
     student_found = False
 
@@ -86,12 +82,10 @@ def add_grade():
         print("Student not found.")
 
 
-def search_student():
+def search_student(students):
     student_number = input("Enter student number to search for: ")
 
     start_time = time.perf_counter()
-
-    students = load_students()
 
     found_student = None
 
@@ -114,19 +108,16 @@ def search_student():
     print(f"Search took {end_time - start_time:.6f} seconds.")
 
 
-def display_all_students():
-    students = load_students()
-
+def display_all_students(students):
     if not students:
         print("No students found.")
         return
 
     print("All students:")
 
-    for i in range(len(students)):
-        sorted_students = sorted(students, key=lambda student: student["name"])
-        student = sorted_students[i]
+    sorted_students = sorted(students, key=lambda s: s["name"])
 
+    for student in sorted_students:
         print(f"Student Number: {student['student_number']}")
         print(f"Name: {student['name']}")
         print(f"Contact: {student['contact']}")
@@ -134,19 +125,15 @@ def display_all_students():
         print()
 
 
-def count_total_grades():
-    students = load_students()
-
+def count_total_grades(students):
     total = 0
-
     for student in students:
-     for grade in student["grades"]:
-        total += 1
+        for grade in student["grades"]:
+            total += 1
     print(f"Total number of grades: {total}")
 
 
-def display_course_summary():
-    students = load_students()
+def display_course_summary(students):
 
     course_counts = {}
 
@@ -164,20 +151,15 @@ def display_course_summary():
     for course, count in course_counts.items():
         print(f"{course}: {count} grade(s)")
 
-def save_backup():
-    students = load_students()
-
-    json_text = json.dumps(students)
-    copied_students = json.loads(json_text)
-
+def save_backup(students):
     with open("students_backup.json", "w") as file:
-        json.dump(copied_students, file, indent=4)
-
+        json.dump(students, file, indent=4)
     print("Backup saved.")
 
 
 def main():
     create_data_file_if_missing()
+    students = load_students()
     login()
 
     while True:
@@ -194,19 +176,19 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            add_student()
+            add_student(students)
         elif choice == "2":
-            add_grade()
+            add_grade(students)
         elif choice == "3":
-            search_student()
+            search_student(students)
         elif choice == "4":
-            display_all_students()
+            display_all_students(students)
         elif choice == "5":
-            count_total_grades()
+            count_total_grades(students)
         elif choice == "6":
-            display_course_summary()
+            display_course_summary(students)
         elif choice == "7":
-            save_backup()
+            save_backup(students)
         elif choice == "8":
             print("Goodbye.")
             break
