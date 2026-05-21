@@ -22,14 +22,14 @@ def save_students(students):
 
 
 def login():
-    username = "admin"
-    password = "password"
+    VALID_USERNAME = "admin"
+    VALID_PASSWORD = "password"
 
     while True:
         given_username = input("Enter username: ")
         given_password = input("Enter password: ")
 
-        if given_username == username and given_password == password:
+        if given_username == VALID_USERNAME and given_password == VALID_PASSWORD:
             print("Login successful.")
             break
         else:
